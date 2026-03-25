@@ -1,3 +1,4 @@
 ipywidgets
 sidecar
 matplotlib
+mujoco
