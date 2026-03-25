@@ -43,7 +43,7 @@ https://binder.intel4coro.de/v2/gh/{USER}/{REPO}/{BRANCH}?urlpath={INTERFACE}/{P
 
 ## Create a new VRB lab from this template
 
-Follow these steps to create your own VRB lab using this template:
+Follow these steps to create your own VRB lab using this template
 
 ### Step 1: Create a GitHub Repository
 
@@ -85,7 +85,8 @@ You can work with your repository either locally or using GitHub Codespace:
    matplotlib
    ```
 1. Configure Docker Environment
-    If your project requires additional system packages (e.g., FFmpeg, ROS, or other APT packages), build a ROS2 workspace, modify the [binder/Dockerfile](binder/Dockerfile):
+
+    If your project requires additional system packages (e.g., FFmpeg, ROS, or other APT packages) or build a ROS2 workspace, modify the [binder/Dockerfile](binder/Dockerfile):
 
     ```dockerfile
     # Example:
@@ -106,11 +107,11 @@ The current template uses the following base Docker image: `intel4coro/jupyter-r
 
 This base image includes:
 - **ROS 2 Jazzy** - Robot Operating System 2 (Jazzy distribution)
-- **Python 3.12** - Python with pip and conda
-- **JupyterLab** - Pre-configured notebook environment
+- **Python 3.12** - Installed via conda
+- **JupyterLab** - Notebook environment
 - **Conda/Mamba** - Package manager
 - **VSCode Server** - Browser-based VSCode
-- **VNC Desktop** - Virtual desktop for running graphical applications like MuJoCo viewer, Rviz
+- **VNC Desktop** - Virtual desktop for running linux native graphical applications like MuJoCo viewer, Rviz, Gazebo
 
 It is possible to use use other base images such as your own built docker images, official ROS images, just replace the base image in dockerfile and:
 
@@ -144,9 +145,9 @@ ENTRYPOINT ["/entrypoint.sh"]
 
 ### Step 4: Commit Your Changes and Push to GitHub
 
-After making changes to your repository, you need to commit and push them to GitHub. Here's how:
+After making changes to your repository, you need to commit and push them to GitHub.
 
-#### Option A: Using Git Commands (Local Development)
+#### Option A: Using Git Commands(Local Development)
 
 1. **Check the status of your changes:**
 
@@ -186,14 +187,14 @@ After making changes to your repository, you need to commit and push them to Git
 5. Click the **Commit** button (checkmark icon).
 6. Click **Sync Changes** to push to GitHub.
 
-### Step 5: Launch Your Lab on Binder
+### Step 5: Build Your Lab on Binder
 
-Once your repository is ready, you can launch it on using the URL format described in the [Quick Start](#launcher-url-parameters) section.
+Once your repository is ready, you can launch it using the URL format described in the [Quick Start](#launcher-url-parameters) section.
 
 **Example:**
 
 ```
-https://binder.intel4coro.de/v2/gh/johndoe/my-robotics-lab/main?urlpath=lab/tree/notebooks/demo.ipynb
+https://binder.intel4coro.de/v2/gh/my-gihub-username/my-robotics-lab/main?urlpath=lab/tree/notebooks/my-notebook.ipynb
 ```
 
 > **Note:** The first time you launch, the server will build the Docker image, which may take a while. Subsequent launches will be faster.
@@ -219,8 +220,19 @@ If the Docker build succeeds and you can access the JupyterLab interface normall
 **Troubleshooting:**
 
 - **Build failed**: Check the build error logs and modify `binder/Dockerfile` accordingly
-- **Timeout error**: Refresh the page
-- **Image builds successfully but fails to start every time**: Check if you have added a foreground script in `binder/entrypoint.sh`
+  
+  Common build problems and solutions:
+   | Issue | Solution |
+   |-------|----------|
+   | apt install fails | Run `apt update` before `apt install -y` and ensure packages exist in Ubuntu/Debian repositories |
+   | Permission denied | Add `USER root` before RUN commands in Dockerfile |
+   | fatal: Could not read from remote repository... | Make sure the repository URL you use for `git clone` is HTTPS instead of the SSH/git protocol. The same applies to any submodule URLs defined in `.gitmodules`|
+  | returned a non-zero code | It means the bash command failed during execution. Check the full build log with to see the exact error. The actual error message might be hidden further up in the logs, which can make it easy to miss.  |
+  | no such file or directory | The directory state is not preserved between two `RUN` instructions. For example, if you `cd` into a directory in the first `RUN`, and execute a script from that directory in the second `RUN`, it will fail. You need to either combine them into a multi-line `bash` command or use the `WORKDIR` instruction. |
+  
+
+- **Timeout error**: Refresh the page, and try again.
+- **Image builds successfully but fails to start and keep seeing timeout error**: Check if you have added a foreground script in `binder/entrypoint.sh`
 
 ## Optimizing Docker Build Time (Advanced)
 
@@ -242,13 +254,15 @@ Example:
 FROM intel4coro/jupyter-ros2:jazzy-py3.12
 
 # These steps are cached and rarely change - put them FIRST
+
 # This step downloads 2GB assets, better not to rerun it everytime. 
 RUN git clone --depth=1 https://github.com/google-deepmind/mujoco_menagerie.git
 
-# This copies your repo - changes often, put it LAST
+# This copies your repo - changes often, put it LATER
 COPY . ${REPO_DIR}/
 
 # Any step after COPY runs EVERY time - cannot use cache
+
 ```
 
 **Why This Matters:**
@@ -263,16 +277,6 @@ COPY . ${REPO_DIR}/
 2. **Install system packages early** - Put `apt install` commands before the COPY
 3. **Install Python packages early** - Put `pip install` before the COPY
 4. **Only put repo-specific steps after COPY** - Things that need your latest code
-
-#### Troubleshooting Build Issues
-
-Common build problems and solutions:
-
-| Issue | Solution |
-|-------|----------|
-| Package not found | Check package name and version in `requirements.txt` |
-| apt install fails | Ensure packages exist in Ubuntu/Debian repositories |
-| Permission denied | Add `USER root` before RUN commands in Dockerfile |
 
 ## Local Development
 
@@ -332,13 +336,12 @@ Before starting, ensure you have a linux machine with the following installed:
 
    **Solution:**
 
-   After running the container, if you encounter permission denied errors, change ownership of your project directory:
+   Change ownership of your project directory:
    ```bash
-   # Run this AFTER stopping the container
    sudo chown -R $USER:$USER /path/to/your-repo
    ```
 
-4. **Stop the container:**
+4. **Stop and delete the container:**
    ```bash
    docker compose -f ./binder/docker-compose.yml down
    ```
@@ -364,12 +367,7 @@ Instead of using the built-in VNC desktop, you can run GUI applications (like Mu
     environment:
       - DISPLAY=${DISPLAY}  # Use host display for GUI apps
    ```
- 3. Compose down and up again.
-
-**Benefits:**
-- Better performance than VNC
-- Native look and feel
-- Direct hardware acceleration (when GPU is available)
+ 3. Docker compose down and up again.
 
 ### GPU Configuration
 
@@ -394,8 +392,9 @@ services:
               capabilities: [gpu]
 ```
 
-Then run:
+Then compose down and up:
 ```bash
+docker compose -f ./binder/docker-compose.yml down
 docker compose -f ./binder/docker-compose.yml up --build
 ```
 
@@ -412,7 +411,7 @@ nvidia-smi
 
 | Issue | Solution |
 |-------|----------|
-| Port already in use | Stop other services or change port mappings in `docker-compose.yml` |
+| Port already in use | Stop other services using port 8888 or change port mappings in `docker-compose.yml` |
 | Permission denied | Run Docker without sudo or fix file permissions |
 | Container exits immediately | Check logs: `docker compose logs` |
 | Changes not reflected | Ensure volume mount is correct in `docker-compose.yml` |
