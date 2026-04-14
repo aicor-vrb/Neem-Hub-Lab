@@ -5,6 +5,7 @@ set -e
 source "${ROS_PATH}/setup.bash"
 
 log_startup_context() {
+    local log_file="/tmp/binder-startup.log"
     {
         echo "=== Binder entrypoint startup context ==="
         echo "date=$(date -Iseconds)"
@@ -15,7 +16,7 @@ log_startup_context() {
         echo "--- selected environment ---"
         env | sort | grep -E '^(BINDER|JUPYTER|JUPYTERHUB|NB|REPO|URL|PATH|QUERY|ROBOT|TASK|ENVIRONMENT)=' || true
         echo "=== end startup context ==="
-    } >&2
+    } | tee "${log_file}" >&2
 }
 
 import_workspace() {
