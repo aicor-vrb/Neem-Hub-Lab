@@ -8,10 +8,6 @@ This is a template repository for creating Virtual Research Labs(VRL) as part of
 
 This template provides a foundation for running robotics research Jupyter Notebooks on Binderhub, enabling researchers to share interactive experiments and demonstrations.
 
-## Quick Start
-
-Running with the MuJoCo interactive tutorial in just a few clicks. No installation required!
-
 ### Launcher Options
 
 Click one of the following links to launch the lab:
