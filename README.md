@@ -1,6 +1,6 @@
 # binder-template
 
-[![Binder](https://binder.intel4coro.de/badge_logo.svg)](https://binder.intel4coro.de/v2/gh/IntEL4CoRo/binder-template.git/main)
+[![Binder](https://binder.intel4coro.de/badge_logo.svg)](https://binder.intel4coro.de/v2/gh/IntEL4CoRo/binder-template.git/main?urlpath=lab/workspaces/new-workspace)
 
 ## Introduction
 
@@ -18,7 +18,7 @@ Click one of the following links to launch the lab:
 
 | Links | Description |
 |--------|-------------|
-| [**JupyterLab**](https://binder.intel4coro.de/v2/gh/IntEL4CoRo/binder-template.git/main?urlpath=lab/tree/notebooks/mujoco.ipynb) | Full-featured IDE with notebook editor, terminal, and file browser | [Launch](https://binder.intel4coro.de/v2/gh/IntEL4CoRo/binder-template.git/main?urlpath=lab/tree/notebooks/mujoco.ipynb) |
+| [**JupyterLab**](https://binder.intel4coro.de/v2/gh/IntEL4CoRo/binder-template.git/main?urlpath=lab/workspaces/new-workspace) | Full-featured IDE with notebook editor, terminal, and file browser | [Launch](https://binder.intel4coro.de/v2/gh/IntEL4CoRo/binder-template.git/main?urlpath=lab/workspaces/new-workspace) |
 | [**VSCode**](https://binder.intel4coro.de/v2/gh/IntEL4CoRo/binder-template.git/main?urlpath=vscode) | Browser-based code editor with full VSCode experience |
 
 ### Launcher URL Parameters
