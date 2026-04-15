@@ -1,4 +1,6 @@
 import os
+from base64 import b64encode
+from pathlib import Path
 
 import ipywidgets as widgets
 from IPython.display import HTML, Markdown, display
@@ -9,6 +11,7 @@ ACTIONS = ("cut", "mix", "wipe")
 ENVIRONMENTS = ("isr", "apartment", "kitchen")
 
 CURRENT_DEMO_SELECTION = {}
+BACKGROUND_IMAGE_PATH = Path(__file__).resolve().parent.parent.joinpath("img", "ease-background.png")
 
 
 def _style_label(value):
@@ -16,28 +19,47 @@ def _style_label(value):
 
 
 def _inject_styles():
-    display(
-        HTML(
-            """
+    background_image = ""
+    if BACKGROUND_IMAGE_PATH.exists():
+        background_image = b64encode(BACKGROUND_IMAGE_PATH.read_bytes()).decode("ascii")
+
+    style_template = """
             <style>
             .demo-shell {
-                --demo-ink: #132238;
-                --demo-muted: #5d7188;
-                --demo-accent: #db5c32;
-                --demo-accent-soft: #ffd8c8;
-                --demo-card: rgba(255, 252, 247, 0.94);
-                --demo-line: rgba(19, 34, 56, 0.14);
+                --demo-ink: #17324d;
+                --demo-muted: #64748b;
+                --demo-accent: #2f6fa3;
+                --demo-accent-soft: #e9f3fb;
+                --demo-card: #ffffff;
+                --demo-line: #e7edf3;
+                --demo-surface: #f7fafc;
                 font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
                 color: var(--demo-ink);
+                position: relative;
                 background:
-                    radial-gradient(circle at top left, rgba(219, 92, 50, 0.28), transparent 28%),
-                    radial-gradient(circle at top right, rgba(42, 134, 189, 0.18), transparent 32%),
-                    linear-gradient(135deg, #f4efe6 0%, #e9f1f7 100%);
-                border: 1px solid rgba(255,255,255,0.65);
-                border-radius: 28px;
-                box-shadow: 0 24px 60px rgba(23, 36, 58, 0.12);
-                padding: 28px;
+                    linear-gradient(180deg, rgba(251, 253, 255, 0.96) 0%, rgba(244, 248, 251, 0.97) 100%);
+                border: 1px solid var(--demo-line);
+                border-radius: 24px;
+                box-shadow: 0 16px 36px rgba(31, 52, 84, 0.08);
+                padding: 30px;
                 overflow: hidden;
+            }
+            .demo-shell::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background:
+                    linear-gradient(180deg, rgba(255, 255, 255, 0.78) 0%, rgba(247, 250, 252, 0.84) 100%),
+                    url("data:image/png;base64,__BACKGROUND_IMAGE__");
+                background-position: center top, calc(50% + 240px) -56px;
+                background-repeat: no-repeat;
+                background-size: auto, 112% auto;
+                opacity: 0.72;
+                pointer-events: none;
+            }
+            .demo-shell > * {
+                position: relative;
+                z-index: 1;
             }
             .demo-shell h1,
             .demo-shell h2,
@@ -48,26 +70,27 @@ def _inject_styles():
             .demo-hero {
                 display: grid;
                 gap: 10px;
-                margin-bottom: 20px;
+                margin-bottom: 24px;
+                width: min(100%, 520px);
             }
             .demo-kicker {
                 display: inline-flex;
                 width: fit-content;
-                padding: 6px 12px;
+                padding: 7px 13px;
                 border-radius: 999px;
-                background: rgba(19, 34, 56, 0.07);
-                color: var(--demo-muted);
+                background: #edf3f8;
+                color: #6a7f93;
                 font-size: 12px;
                 font-weight: 700;
                 letter-spacing: 0.08em;
                 text-transform: uppercase;
             }
             .demo-title {
-                font-size: 34px;
+                font-size: 26px;
                 font-weight: 700;
-                line-height: 1.05;
+                line-height: 1.08;
                 letter-spacing: -0.03em;
-                max-width: 12ch;
+                max-width: none;
             }
             .demo-copy {
                 max-width: 64ch;
@@ -75,18 +98,18 @@ def _inject_styles():
                 line-height: 1.55;
                 font-size: 15px;
             }
-            .demo-grid {
-                display: grid;
-                grid-template-columns: minmax(0, 1.3fr) minmax(290px, 0.9fr);
-                gap: 18px;
-                align-items: start;
-            }
             .demo-card {
                 background: var(--demo-card);
                 border: 1px solid var(--demo-line);
-                border-radius: 22px;
-                padding: 18px;
-                backdrop-filter: blur(10px);
+                border-radius: 20px;
+                padding: 20px;
+                box-shadow: 0 8px 20px rgba(30, 58, 95, 0.04);
+            }
+            .demo-controls {
+                width: min(100%, 560px);
+            }
+            .demo-scenario-card {
+                width: min(100%, 520px);
             }
             .demo-card-title {
                 font-size: 18px;
@@ -107,43 +130,56 @@ def _inject_styles():
             }
             .demo-ui .widget-dropdown select,
             .demo-ui .widget-select select {
-                border-radius: 14px;
+                border-radius: 12px;
                 border: 1px solid var(--demo-line);
                 box-shadow: none;
-                background: rgba(255,255,255,0.86);
+                background: var(--demo-surface);
                 font-size: 14px;
+                color: var(--demo-ink);
             }
             .demo-ui .widget-toggle-buttons {
                 width: 100%;
             }
             .demo-ui .widget-toggle-buttons .widget-toggle-button {
+                display: inline-flex !important;
+                align-items: center !important;
+                justify-content: center !important;
                 border-radius: 999px !important;
                 border: 1px solid var(--demo-line) !important;
                 margin-right: 8px;
                 margin-bottom: 8px;
-                background: rgba(255,255,255,0.76);
+                background: #f7fafc;
                 color: var(--demo-ink);
                 font-weight: 600;
                 padding: 7px 15px;
-                transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+                text-align: center !important;
+                line-height: 1.2 !important;
+                min-height: 40px;
+                transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease, border-color 160ms ease;
             }
             .demo-ui .widget-toggle-buttons .widget-toggle-button.mod-active {
-                background: linear-gradient(135deg, #db5c32 0%, #f18b47 100%);
+                background: linear-gradient(135deg, #2f6fa3 0%, #4d8fc4 100%);
                 color: white;
                 border-color: transparent !important;
-                box-shadow: 0 10px 24px rgba(219, 92, 50, 0.28);
+                box-shadow: 0 10px 20px rgba(47, 111, 163, 0.22);
                 transform: translateY(-1px);
             }
             .demo-start .widget-button {
-                width: 100%;
+                display: inline-flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                width: auto;
+                min-width: 220px;
                 border: 0;
-                border-radius: 16px;
+                border-radius: 14px;
                 padding: 12px 18px;
-                background: linear-gradient(135deg, #132238 0%, #2a4867 100%);
+                background: linear-gradient(135deg, #c8574f 0%, #dd7463 100%);
                 color: white;
                 font-weight: 700;
                 letter-spacing: 0.01em;
-                box-shadow: 0 14px 26px rgba(19, 34, 56, 0.22);
+                text-align: center !important;
+                line-height: 1.2 !important;
+                box-shadow: 0 12px 22px rgba(200, 87, 79, 0.24);
             }
             .demo-summary {
                 display: grid;
@@ -157,8 +193,8 @@ def _inject_styles():
                 display: grid;
                 gap: 4px;
                 padding: 12px 14px;
-                border-radius: 16px;
-                background: rgba(255,255,255,0.72);
+                border-radius: 14px;
+                background: var(--demo-surface);
                 border: 1px solid var(--demo-line);
             }
             .demo-badge-label {
@@ -174,22 +210,44 @@ def _inject_styles():
             }
             .demo-note {
                 padding: 12px 14px;
-                border-radius: 16px;
+                border-radius: 14px;
                 background: var(--demo-accent-soft);
-                color: #7f351b;
+                color: #244f74;
                 font-size: 13px;
                 line-height: 1.5;
             }
+            .demo-subtle-list {
+                display: grid;
+                gap: 10px;
+                margin-top: 14px;
+            }
+            .demo-subtle-row {
+                display: grid;
+                grid-template-columns: 14px 1fr;
+                gap: 10px;
+                align-items: start;
+                color: var(--demo-muted);
+                font-size: 13px;
+                line-height: 1.45;
+            }
+            .demo-subtle-dot {
+                width: 10px;
+                height: 10px;
+                margin-top: 4px;
+                border-radius: 999px;
+                background: linear-gradient(135deg, #2f6fa3 0%, #4d8fc4 100%);
+            }
             @media (max-width: 900px) {
-                .demo-grid {
-                    grid-template-columns: 1fr;
-                }
                 .demo-title {
                     max-width: none;
                 }
             }
             </style>
             """
+
+    display(
+        HTML(
+            style_template.replace("__BACKGROUND_IMAGE__", background_image)
         )
     )
 
@@ -231,31 +289,20 @@ def show_demo_ui(on_start=None):
     }
     CURRENT_DEMO_SELECTION = selection.copy()
 
-    header = widgets.HTML(
-        value="""
-        <div class="demo-hero">
-          <div class="demo-kicker">Virtual Research Lab</div>
-          <div class="demo-title">Compose a robotics demo run without leaving the notebook.</div>
-          <div class="demo-copy">
-            Pick the robot, choose an action, set the environment, then launch a shared
-            demo backend. The UI is intentionally notebook-native so it stays stable on Binder.
-          </div>
-        </div>
-        """
-    )
-
     left_intro = widgets.HTML(
         value="""
         <div class="demo-card">
           <div class="demo-card-title">Scenario Builder</div>
           <div class="demo-card-copy">
-            Use a broad robot catalog, keep actions explicit, and treat the environment as a first-class input.
+            Configure your demo stack directly inside the notebook. Pick a robot,
+            choose the action family, and select the target environment here.
           </div>
         </div>
         """
     )
+    left_intro.add_class("demo-scenario-card")
 
-    robot = widgets.Dropdown(
+    robot = widgets.ToggleButtons(
         options=[(_style_label(value), value) for value in ROBOTS],
         value=selection["robot"],
         description="Robot",
@@ -292,23 +339,7 @@ def show_demo_ui(on_start=None):
     )
     controls.add_class("demo-card")
     controls.add_class("demo-ui")
-
-    aside = widgets.VBox(
-        [
-            widgets.HTML(
-                value="""
-                <div class="demo-card">
-                  <div class="demo-card-title">Live Selection</div>
-                  <div class="demo-card-copy">
-                    The current stack updates as you click. Hook the launch button to your real runner later.
-                  </div>
-                </div>
-                """
-            ),
-            summary,
-        ]
-    )
-    aside.add_class("demo-card")
+    controls.add_class("demo-controls")
 
     def _update_selection(change):
         global CURRENT_DEMO_SELECTION
@@ -336,14 +367,6 @@ def show_demo_ui(on_start=None):
 
     start_button.on_click(_handle_start)
 
-    grid = widgets.HBox(
-        [controls, aside],
-        layout=widgets.Layout(width="100%", align_items="stretch"),
-    )
-    grid.add_class("demo-grid")
-    controls.layout = widgets.Layout(width="100%")
-    aside.layout = widgets.Layout(width="100%")
-
-    container = widgets.VBox([header, grid], layout=widgets.Layout(width="100%"))
+    container = widgets.VBox([controls], layout=widgets.Layout(width="100%"))
     container.add_class("demo-shell")
     display(container)

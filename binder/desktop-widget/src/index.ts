@@ -6,11 +6,13 @@ import {
 import { MainAreaWidget, WidgetTracker } from '@jupyterlab/apputils';
 import { PageConfig } from '@jupyterlab/coreutils';
 import { IDocumentManager } from '@jupyterlab/docmanager';
+import { NotebookActions, NotebookPanel } from '@jupyterlab/notebook';
 import { Widget } from '@lumino/widgets';
 
 const COMMAND_ID = 'desktop-widget:open';
 const NAMESPACE = 'desktop-widget';
-const DEFAULT_NOTEBOOK = 'notebooks/start_demo.ipynb';
+const DEFAULT_NOTEBOOK = 'notebooks/demo.ipynb';
+const AUTO_RUN_CELL_INDEX = 0;
 
 class DesktopContent extends Widget {
   constructor() {
@@ -62,9 +64,34 @@ const plugin: JupyterFrontEndPlugin<void> = {
       return widget;
     };
 
+    const autoRunNotebookCell = async (panel: NotebookPanel) => {
+      try {
+        await panel.revealed;
+        await panel.context.ready;
+        await panel.sessionContext.ready;
+
+        const cellCount = panel.content.widgets.length;
+        if (cellCount <= AUTO_RUN_CELL_INDEX) {
+          return;
+        }
+
+        panel.content.activeCellIndex = AUTO_RUN_CELL_INDEX;
+        await NotebookActions.run(panel.content, panel.sessionContext);
+      } catch (error) {
+        console.error(
+          `Failed to auto-run cell ${AUTO_RUN_CELL_INDEX} in ${DEFAULT_NOTEBOOK}`,
+          error
+        );
+      }
+    };
+
     const openNotebook = async () => {
       try {
-        return await docManager.openOrReveal(DEFAULT_NOTEBOOK, 'Notebook');
+        const widget = await docManager.openOrReveal(DEFAULT_NOTEBOOK, 'Notebook');
+        if (widget instanceof NotebookPanel) {
+          void autoRunNotebookCell(widget);
+        }
+        return widget;
       } catch (error) {
         console.error(`Failed to open ${DEFAULT_NOTEBOOK}`, error);
         return null;
