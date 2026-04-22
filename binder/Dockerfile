@@ -37,7 +37,8 @@ RUN set -ex && \
     poetry config virtualenvs.create false && \
     mkdir -p ${HOME}/libs && cd ${HOME}/libs && \
     git clone --branch cause_draft --single-branch https://github.com/Narenvasant/cognitive_robot_abstract_machine.git && \
-
+       cd cognitive_robot_abstract_machine && \
+    sed -i '/^[[:space:]]*random_events[[:space:]]*=.*$/d' pyproject.toml && \
     poetry install && \
     mkdir -p /workspace/ros/src && \
     cd /workspace/ros/src && \
