@@ -21,6 +21,7 @@ RUN apt update && apt install -y --no-install-recommends \
     ros-jazzy-controller-manager \
     ros-jazzy-control-msgs \
     ros-jazzy-xacro \
+    sudo apt install ros-jazzy-rclpy-message-converter \
     ros-jazzy-rqt-joint-trajectory-controller \
     python3-vcstool \
     nodejs \
