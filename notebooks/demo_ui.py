@@ -44,7 +44,14 @@ def _ensure_cognitive_architecture_on_path():
     for base in candidates:
         if not base.exists():
             continue
-        for path in (base, base / "src", base / "pycram", base / "pycram" / "src"):
+        for path in (
+            base,
+            base / "src",
+            base / "pycram",
+            base / "pycram" / "src",
+            base / "krrood",
+            base / "krrood" / "src",
+        ):
             if path.exists() and str(path) not in sys.path:
                 sys.path.insert(0, str(path))
 
@@ -414,9 +421,15 @@ def _task_status_options():
 
 
 def _build_question(selection):
-    from krrood.entity_query_language.factories import an, entity, variable
-    from pycram.datastructures.enums import TaskStatus
-    from pycram.orm.ormatic_interface import DesignatorNodeDAO
+    try:
+        from krrood.entity_query_language.factories import an, entity, variable
+        from pycram.datastructures.enums import TaskStatus
+        from pycram.orm.ormatic_interface import DesignatorNodeDAO
+    except ModuleNotFoundError as exc:
+        raise ModuleNotFoundError(
+            "Could not import CRAM query modules. The Binder image is missing "
+            "`krrood` or `pycram`, or their source paths are not visible to the notebook kernel."
+        ) from exc
 
     template = QUERY_TEMPLATES[selection["template"]]
     action = variable(type_=DesignatorNodeDAO, domain=[])
