@@ -106,7 +106,8 @@ RUN set -ex && \
 # ROS2 workspace: giskardpy_ros (clone, deps, build)
 # ------------------------------------------------------------
 RUN pip install xacro
-
+RUN pip install psycopg2
+RUN pip install ipywidgets
 
 ARG ROS_DISTRO=jazzy
 ENV ROS_DISTRO=${ROS_DISTRO}
