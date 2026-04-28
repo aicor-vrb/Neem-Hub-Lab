@@ -583,11 +583,9 @@ def run_ui(session=None, on_fetch=None):
     )
     controls.add_class("demo-card")
     controls.add_class("demo-ui")
-    controls.layout = widgets.Layout(width="360px", min_width="360px", flex="0 0 360px")
 
     results = widgets.VBox([result_panel, output])
     results.add_class("demo-card")
-    results.layout = widgets.Layout(width="auto", flex="1 1 auto")
 
     def _update_selection(change):
         global CURRENT_DEMO_SELECTION
@@ -672,9 +670,9 @@ def run_ui(session=None, on_fetch=None):
         children.append(logo_header)
     children.append(_hero())
     children.append(
-        widgets.HBox(
+        widgets.VBox(
             [controls, results],
-            layout=widgets.Layout(width="100%", align_items="flex-start"),
+            layout=widgets.Layout(width="100%"),
         )
     )
 
