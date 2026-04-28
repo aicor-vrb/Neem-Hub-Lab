@@ -46,11 +46,15 @@ RUN apt update && apt install -y --no-install-recommends \
 # ------------------------------------------------------------
 
 RUN python3 -m pip install poetry
+ENV CRAM_DIR=/root/libs/cognitive_robot_abstract_machine
+ENV CRAM_VENV=/root/libs/cognitive_robot_abstract_machine/.venv
 RUN set -ex && \
-    poetry config virtualenvs.create false && \
     mkdir -p ${HOME}/libs && cd ${HOME}/libs && \
     git clone --branch cause_draft --single-branch https://github.com/Narenvasant/cognitive_robot_abstract_machine.git && \
        cd cognitive_robot_abstract_machine && \
+    poetry config virtualenvs.create true && \
+    poetry config virtualenvs.in-project true && \
+    poetry env use /opt/conda/bin/python3.12 && \
     poetry install && \
     mkdir -p /workspace/ros/src && \
     cd /workspace/ros/src && \
@@ -103,6 +107,9 @@ ENV ROS_DISTRO=${ROS_DISTRO}
 
 
 RUN pip install "setuptools<81"
+
+ENV PATH=${CRAM_VENV}/bin:${PATH}
+ENV PYTHONPATH=${CRAM_VENV}/lib/python3.12/site-packages:${PYTHONPATH}
 
 USER root
 # Copy content to the image
