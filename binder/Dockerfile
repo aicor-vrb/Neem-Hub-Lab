@@ -56,7 +56,7 @@ RUN set -ex && \
     poetry env use /opt/conda/bin/python3.12 && \
     poetry install && \
     CRAM_VENV_PATH="$(poetry env info --path)" && \
-    "${CRAM_VENV_PATH}/bin/python" -m pip install ipykernel && \
+    "${CRAM_VENV_PATH}/bin/python" -m pip install psycopg2 ipywidgets ipykernel && \
     "${CRAM_VENV_PATH}/bin/python" -m ipykernel install \
       --prefix=/opt/conda \
       --name ${CRAM_KERNEL_NAME} \
