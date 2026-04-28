@@ -46,8 +46,6 @@ RUN apt update && apt install -y --no-install-recommends \
 # ------------------------------------------------------------
 
 RUN python3 -m pip install poetry
-ENV CRAM_DIR=/root/libs/cognitive_robot_abstract_machine
-ENV CRAM_VENV=/root/libs/cognitive_robot_abstract_machine/.venv
 ENV CRAM_KERNEL_NAME=cram-poetry
 RUN set -ex && \
     mkdir -p ${HOME}/libs && cd ${HOME}/libs && \
@@ -57,8 +55,9 @@ RUN set -ex && \
     poetry config virtualenvs.in-project true && \
     poetry env use /opt/conda/bin/python3.12 && \
     poetry install && \
-    ${CRAM_VENV}/bin/python -m pip install ipykernel && \
-    ${CRAM_VENV}/bin/python -m ipykernel install \
+    CRAM_VENV_PATH="$(poetry env info --path)" && \
+    "${CRAM_VENV_PATH}/bin/python" -m pip install ipykernel && \
+    "${CRAM_VENV_PATH}/bin/python" -m ipykernel install \
       --prefix=/opt/conda \
       --name ${CRAM_KERNEL_NAME} \
       --display-name "CRAM Python (Poetry)" && \
@@ -114,9 +113,6 @@ ENV ROS_DISTRO=${ROS_DISTRO}
 
 RUN pip install "setuptools<81"
 
-ENV PATH=${CRAM_VENV}/bin:${PATH}
-ENV PYTHONPATH=${CRAM_VENV}/lib/python3.12/site-packages:${PYTHONPATH}
-
 USER root
 # Copy content to the image
 ENV REPO_DIR=/home/repo
@@ -133,8 +129,6 @@ ENV CODE_WORKING_DIRECTORY=${REPO_DIR}
 # Copy RViz config
 COPY default.rviz /home/jovyan/.rviz2/default.rviz
 RUN mkdir -p /home/jovyan/.ipython/profile_default/startup /root/.ipython/profile_default/startup
-COPY binder/ipython_startup/00-cram-paths.py /home/jovyan/.ipython/profile_default/startup/00-cram-paths.py
-COPY binder/ipython_startup/00-cram-paths.py /root/.ipython/profile_default/startup/00-cram-paths.py
 RUN cd ${REPO_DIR}/binder/desktop-widget && \
     npm install && \
     npm run build && \
