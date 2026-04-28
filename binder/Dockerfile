@@ -15,15 +15,27 @@ RUN python3 -m pip install -r /tmp/requirements.txt
 # ------------------------------------------------------------
 USER root
 RUN apt update && apt install -y --no-install-recommends \
+    python3.12-venv \
     ros-jazzy-ros2-control \
     ros-jazzy-ros2-controllers \
     ros-jazzy-hardware-interface \
     ros-jazzy-controller-manager \
     ros-jazzy-control-msgs \
     ros-jazzy-xacro \
+    ros-jazzy-navigation2 \
+    ros-jazzy-py-trees-ros \
     ros-jazzy-rclpy-message-converter \
     ros-jazzy-rqt-joint-trajectory-controller \
+    ros-jazzy-compressed-image-transport \
+    ros-jazzy-image-transport \
+    ros-jazzy-image-transport-plugins \
     python3-vcstool \
+    python3-pip \
+    python3-colcon-common-extensions \
+    ros-dev-tools \
+    default-jre \
+    git \
+    git-lfs \
     nodejs \
     npm \
     wmctrl && \
@@ -45,16 +57,29 @@ RUN set -ex && \
     git clone -b ros-jazzy --single-branch https://github.com/code-iai/iai_maps.git && \
     git clone -b ros-jazzy-main --single-branch https://github.com/code-iai/iai_pr2.git && \
     git clone -b ros-jazzy --single-branch https://github.com/code-iai/iai_robots.git && \
+    git clone -b ros2-jazzy --single-branch https://github.com/code-iai/iai_tracy.git && \
     git clone -b ros2-jazzy --single-branch https://github.com/code-iai/iai_stretch.git && \
     git clone -b ros2-jazzy --single-branch https://github.com/code-iai/hsr_description.git && \
     git clone -b ros2-main --single-branch https://github.com/code-iai/iai_tiago_description.git && \
     git clone -b ros2-master --single-branch https://github.com/realsenseai/realsense-ros.git && \
     git clone -b jazzy --single-branch https://github.com/UniversalRobots/Universal_Robots_ROS2_Description.git && \
     git clone https://github.com/maltehue/ros2_robotiq_gripper.git && \
+    git clone -b humble-devel --single-branch https://github.com/pal-robotics/pmb2_robot.git && \
+    git clone -b humble-devel --single-branch https://github.com/pal-robotics/pal_gripper.git && \
+    git clone -b ros2_jazzy --single-branch https://gitlab.informatik.uni-bremen.de/robokudo/robokudo_msgs.git && \
     rm -rf ros2_robotiq_gripper/robotiq_driver \
            ros2_robotiq_gripper/robotiq_drivers \
            ros2_robotiq_gripper/robotiq_controllers \
            ros2_robotiq_gripper/robotiq_hardware_tests  \
+           iai_tracy/iai_tracy_bringup \
+           iai_tracy/iai_tracy_ur \
+           iai_stretch/iai_stretch_bringup \
+           pmb2_robot/pmb2_bringup \
+           pmb2_robot/pmb2_controller_configuration \
+           pal_gripper/pal_grippper_controller_configuration \
+           pal_gripper/pal_gripper_gazeboo \
+           pal_gripper/pal_gripper_simulation \
+           pal_gripper/pal_parallel_gripper_wrapper \
            realsense-ros/realsense2_ros_mqtt_bridge  \
            realsense-ros/realsense2_rgbd_plugin  \
            realsense-ros/realsense2_camera_msgs \
@@ -64,7 +89,7 @@ RUN set -ex && \
     git clone https://github.com/ipa320/cob_simulation.git && \
     cd /workspace/ros && \
     . /opt/ros/${ROS_DISTRO}/setup.sh && \
-    colcon build --symlink-install \
+    colcon build --merge-install \
       --packages-skip cob_gazebo_tools cob_gazebo_objects cob_gazebo_worlds cob_gazebo cob_bringup_sim cob_simulation && \
     echo "source /workspace/ros/install/setup.bash" >> /root/.bashrc
 
