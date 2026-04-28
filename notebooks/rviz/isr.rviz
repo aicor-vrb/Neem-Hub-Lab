@@ -60,7 +60,123 @@ Visualization Manager:
       Enabled: true
       Name: MarkerArray
       Namespaces:
-        {}
+        Armar7/Ankle_body_link: true
+        Armar7/ArmL1_Cla1_body_link: true
+        Armar7/ArmL2_Sho1_body_link: true
+        Armar7/ArmL3_Sho2_body_link: true
+        Armar7/ArmL4_Sho3_body_link: true
+        Armar7/ArmL5_Elb1_body_link: true
+        Armar7/ArmL6_Elb2_body_link: true
+        Armar7/ArmR1_Cla1_body_link: true
+        Armar7/ArmR2_Sho1_body_link: true
+        Armar7/ArmR3_Sho2_body_link: true
+        Armar7/ArmR4_Sho3_body_link: true
+        Armar7/ArmR5_Elb1_body_link: true
+        Armar7/ArmR6_Elb2_body_link: true
+        Armar7/AzureKinect_body_link: true
+        Armar7/CenterArms_body_link: true
+        Armar7/Hand L Palm_link: true
+        Armar7/Hand R Palm_link: true
+        Armar7/HandL_Adapter_link: true
+        Armar7/HandR_Adapter_link: true
+        Armar7/Head_body_link: true
+        Armar7/Hip_body_link: true
+        Armar7/Index L 1 Body_link: true
+        Armar7/Index L 2 Body_link: true
+        Armar7/Index R 1 Body_link: true
+        Armar7/Index R 2 Body_link: true
+        Armar7/Knee_body_link: true
+        Armar7/LaserScannerBackLeftBody_link: true
+        Armar7/LaserScannerBackRightBody_link: true
+        Armar7/LaserScannerFrontBody_link: true
+        Armar7/Middle L 1 Body_link: true
+        Armar7/Middle L 2 Body_link: true
+        Armar7/Middle R 1 Body_link: true
+        Armar7/Middle R 2 Body_link: true
+        Armar7/Neck_1_Yaw_body_link: true
+        Armar7/Neck_2_Pitch_body_link: true
+        Armar7/Neck_body_link: true
+        Armar7/Pinky L 1 Body_link: true
+        Armar7/Pinky L 2 Body_link: true
+        Armar7/Pinky R 1 Body_link: true
+        Armar7/Pinky R 2 Body_link: true
+        Armar7/Platform_body_link: true
+        Armar7/Ring L 1 Body_link: true
+        Armar7/Ring L 2 Body_link: true
+        Armar7/Ring R 1 Body_link: true
+        Armar7/Ring R 2 Body_link: true
+        Armar7/Thumb L 1 Body_link: true
+        Armar7/Thumb L 2 Body_link: true
+        Armar7/Thumb L 3 Body_link: true
+        Armar7/Thumb R 1 Body_link: true
+        Armar7/Thumb R 2 Body_link: true
+        Armar7/Thumb R 3 Body_link: true
+        Armar7/Torso_root_body_link: true
+        bread_0001: true
+        cutting_board_0001: true
+        knife_left: true
+        knife_right: true
+        world/apple_juice_box__apple_juice__base_link: true
+        world/aruco_marker_0__aruco_marker_0__link_0: true
+        world/basmati_rice__basmati_rice__base_link: true
+        world/bed__bed__link_0: true
+        world/beer__beer__link: true
+        world/cabinet_diamondback__cabinet_diamondback__base_link: true
+        world/cabinet_ikea_galant__cabinet_ikea_galant__base_link: true
+        world/chair1__tv_chair__link_0: true
+        world/chair2__tv_chair__link_0: true
+        world/chair_dinning_room_1__simple_chair__link_0: true
+        world/chair_dinning_room_2__simple_chair__link_0: true
+        world/chair_kitchen_1__simple_chair__link_0: true
+        world/chair_kitchen_2__simple_chair__link_0: true
+        world/chair_kitchen_3__simple_chair__link_0: true
+        world/cone1__Construction Cone__link: true
+        world/cone2__Construction Cone__link: true
+        world/cone3__Construction Cone__link: true
+        world/cone4__Construction Cone__link: true
+        world/cup1__plastic_cup__link: true
+        world/cup2__plastic_cup__link: true
+        world/dinning_room_table__dinning_room_table__base_link: true
+        world/human__person_standing__link: true
+        world/hydrant1__fire_hydrant__link: true
+        world/hydrant2__fire_hydrant__link: true
+        world/lamp_ikea_arstid__lamp_ikea_arstid__base_link: true
+        world/nightstand1__bedroom_nightstand__link_0: true
+        world/nightstand2__bedroom_nightstand__link_0: true
+        world/pizza_box__pizza_box__base_link: true
+        world/plant_floor_small__plant_floor_small__base_link: true
+        world/shelf__shelf__base_link: true
+        world/sofa__sofa__link_0: true
+        world/table_bedside__table_bedside__base_link: true
+        world/table_living_room__table_living_room__base_link: true
+        world/table_outside__cafe_table__link: true
+        world/tea_box__tea_box__base_link: true
+        world/tray_blue_white__tray_blue_white__base_link: true
+        world/tree1__pine_tree__link: true
+        world/tree2__pine_tree__link: true
+        world/tv__tv__link_0: true
+        world/tv_table__tv_table__link_0: true
+        world/wall__wall__Wall_0: true
+        world/wall__wall__Wall_2: true
+        world/walls__walls__Door_4: true
+        world/walls__walls__Wall_19: true
+        world/walls__walls__Wall_21: true
+        world/walls__walls__Wall_22: true
+        world/walls__walls__Wall_23: true
+        world/walls__walls__Wall_24: true
+        world/walls__walls__Wall_25: true
+        world/walls__walls__Wall_26: true
+        world/walls__walls__Wall_27: true
+        world/walls__walls__Wall_36: true
+        world/walls__walls__Wall_48: true
+        world/walls__walls__Wall_49: true
+        world/walls__walls__Wall_50: true
+        world/walls__walls__Wall_51: true
+        world/walls__walls__Wall_53: true
+        world/walls__walls__Wall_58: true
+        world/walls__walls__Wall_61: true
+        world/walls__walls__Wall_63: true
+        world/wardrobe__wardrobe__base_link: true
       Topic:
         Depth: 5
         Durability Policy: Volatile
@@ -93,7 +209,8 @@ Visualization Manager:
       Enabled: true
       Name: MarkerArray
       Namespaces:
-        {}
+        points_sequence_1: true
+        points_sequence_2: true
       Topic:
         Depth: 5
         Durability Policy: Volatile
@@ -223,25 +340,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 5.7239670753479
+      Distance: 3.4070382118225098
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 1.0284686088562012
-        Y: 1.1249834299087524
-        Z: 0.35347622632980347
+        X: 1.5186406373977661
+        Y: 0.44095078110694885
+        Z: 1.1656579971313477
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.6147968769073486
-      Target Frame: demo_camera_target
+      Pitch: 0.36979687213897705
+      Target Frame: <Fixed Frame>
       Value: Orbit (rviz_default_plugins)
-      Yaw: 3.3694169521331787
+      Yaw: 5.887602806091309
     Saved: ~
 Window Geometry:
   Displays:

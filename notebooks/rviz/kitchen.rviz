@@ -60,7 +60,137 @@ Visualization Manager:
       Enabled: true
       Name: MarkerArray
       Namespaces:
-        {}
+        Armar7/Ankle_body_link: true
+        Armar7/ArmL1_Cla1_body_link: true
+        Armar7/ArmL2_Sho1_body_link: true
+        Armar7/ArmL3_Sho2_body_link: true
+        Armar7/ArmL4_Sho3_body_link: true
+        Armar7/ArmL5_Elb1_body_link: true
+        Armar7/ArmL6_Elb2_body_link: true
+        Armar7/ArmR1_Cla1_body_link: true
+        Armar7/ArmR2_Sho1_body_link: true
+        Armar7/ArmR3_Sho2_body_link: true
+        Armar7/ArmR4_Sho3_body_link: true
+        Armar7/ArmR5_Elb1_body_link: true
+        Armar7/ArmR6_Elb2_body_link: true
+        Armar7/AzureKinect_body_link: true
+        Armar7/CenterArms_body_link: true
+        Armar7/Hand L Palm_link: true
+        Armar7/Hand R Palm_link: true
+        Armar7/HandL_Adapter_link: true
+        Armar7/HandR_Adapter_link: true
+        Armar7/Head_body_link: true
+        Armar7/Hip_body_link: true
+        Armar7/Index L 1 Body_link: true
+        Armar7/Index L 2 Body_link: true
+        Armar7/Index R 1 Body_link: true
+        Armar7/Index R 2 Body_link: true
+        Armar7/Knee_body_link: true
+        Armar7/LaserScannerBackLeftBody_link: true
+        Armar7/LaserScannerBackRightBody_link: true
+        Armar7/LaserScannerFrontBody_link: true
+        Armar7/Middle L 1 Body_link: true
+        Armar7/Middle L 2 Body_link: true
+        Armar7/Middle R 1 Body_link: true
+        Armar7/Middle R 2 Body_link: true
+        Armar7/Neck_1_Yaw_body_link: true
+        Armar7/Neck_2_Pitch_body_link: true
+        Armar7/Neck_body_link: true
+        Armar7/Pinky L 1 Body_link: true
+        Armar7/Pinky L 2 Body_link: true
+        Armar7/Pinky R 1 Body_link: true
+        Armar7/Pinky R 2 Body_link: true
+        Armar7/Platform_body_link: true
+        Armar7/Ring L 1 Body_link: true
+        Armar7/Ring L 2 Body_link: true
+        Armar7/Ring R 1 Body_link: true
+        Armar7/Ring R 2 Body_link: true
+        Armar7/Thumb L 1 Body_link: true
+        Armar7/Thumb L 2 Body_link: true
+        Armar7/Thumb L 3 Body_link: true
+        Armar7/Thumb R 1 Body_link: true
+        Armar7/Thumb R 2 Body_link: true
+        Armar7/Thumb R 3 Body_link: true
+        Armar7/Torso_root_body_link: true
+        bread_0001: true
+        cutting_board_0001: true
+        iai_oven_area/drawer_oven_right_board0_barrier_left_link: true
+        iai_oven_area/drawer_oven_right_board0_barrier_right_link: true
+        iai_oven_area/drawer_oven_right_board0_link: true
+        iai_oven_area/drawer_oven_right_board1_barrier_left_link: true
+        iai_oven_area/drawer_oven_right_board1_barrier_right_link: true
+        iai_oven_area/drawer_oven_right_board1_link: true
+        iai_oven_area/drawer_oven_right_board2_barrier_left_link: true
+        iai_oven_area/drawer_oven_right_board2_barrier_right_link: true
+        iai_oven_area/drawer_oven_right_board2_link: true
+        iai_oven_area/drawer_oven_right_board3_barrier_left_link: true
+        iai_oven_area/drawer_oven_right_board3_barrier_right_link: true
+        iai_oven_area/drawer_oven_right_board3_link: true
+        iai_oven_area/drawer_oven_right_front_link: true
+        iai_oven_area/fridge_area: true
+        iai_oven_area/fridge_area_lower_drawer_handle: true
+        iai_oven_area/fridge_area_lower_drawer_main: true
+        iai_oven_area/iai_fridge_door: true
+        iai_oven_area/iai_fridge_door_handle: true
+        iai_oven_area/iai_fridge_main: true
+        iai_oven_area/kitchen_island: true
+        iai_oven_area/kitchen_island_left_lower_drawer_handle: true
+        iai_oven_area/kitchen_island_left_lower_drawer_main: true
+        iai_oven_area/kitchen_island_left_panel: true
+        iai_oven_area/kitchen_island_left_upper_drawer_handle: true
+        iai_oven_area/kitchen_island_left_upper_drawer_main: true
+        iai_oven_area/kitchen_island_middle_lower_drawer_handle: true
+        iai_oven_area/kitchen_island_middle_lower_drawer_main: true
+        iai_oven_area/kitchen_island_middle_panel: true
+        iai_oven_area/kitchen_island_middle_upper_drawer_handle: true
+        iai_oven_area/kitchen_island_middle_upper_drawer_main: true
+        iai_oven_area/kitchen_island_right_lower_drawer_handle: true
+        iai_oven_area/kitchen_island_right_lower_drawer_main: true
+        iai_oven_area/kitchen_island_right_panel: true
+        iai_oven_area/kitchen_island_right_upper_drawer_handle: true
+        iai_oven_area/kitchen_island_right_upper_drawer_main: true
+        iai_oven_area/kitchen_island_stove: true
+        iai_oven_area/kitchen_island_surface: true
+        iai_oven_area/kitchen_wall_1: true
+        iai_oven_area/kitchen_wall_2: true
+        iai_oven_area/kitchen_wall_3: true
+        iai_oven_area/kitchen_wall_4: true
+        iai_oven_area/kitchen_wall_5: true
+        iai_oven_area/kitchen_wall_6: true
+        iai_oven_area/oven_area_area: true
+        iai_oven_area/oven_area_area_left_drawer_handle: true
+        iai_oven_area/oven_area_area_left_drawer_main: true
+        iai_oven_area/oven_area_area_middle_lower_drawer_handle: true
+        iai_oven_area/oven_area_area_middle_lower_drawer_main: true
+        iai_oven_area/oven_area_area_middle_upper_drawer_handle: true
+        iai_oven_area/oven_area_area_middle_upper_drawer_main: true
+        iai_oven_area/oven_area_area_right_drawer_handle: true
+        iai_oven_area/oven_area_oven_door: true
+        iai_oven_area/oven_area_oven_door_handle: true
+        iai_oven_area/oven_area_oven_knob_oven: true
+        iai_oven_area/oven_area_oven_knob_stove_1: true
+        iai_oven_area/oven_area_oven_knob_stove_2: true
+        iai_oven_area/oven_area_oven_knob_stove_3: true
+        iai_oven_area/oven_area_oven_knob_stove_4: true
+        iai_oven_area/oven_area_oven_main: true
+        iai_oven_area/oven_area_oven_panel: true
+        iai_oven_area/sink_area: true
+        iai_oven_area/sink_area_dish_washer_door: true
+        iai_oven_area/sink_area_dish_washer_door_handle: true
+        iai_oven_area/sink_area_dish_washer_main: true
+        iai_oven_area/sink_area_left_bottom_drawer_handle: true
+        iai_oven_area/sink_area_left_bottom_drawer_main: true
+        iai_oven_area/sink_area_left_middle_drawer_handle: true
+        iai_oven_area/sink_area_left_middle_drawer_main: true
+        iai_oven_area/sink_area_left_upper_drawer_handle: true
+        iai_oven_area/sink_area_left_upper_drawer_main: true
+        iai_oven_area/sink_area_right_panel: true
+        iai_oven_area/sink_area_sink: true
+        iai_oven_area/sink_area_surface: true
+        iai_oven_area/sink_area_trash_drawer_handle: true
+        iai_oven_area/sink_area_trash_drawer_main: true
+        knife_left: true
+        knife_right: true
       Topic:
         Depth: 5
         Durability Policy: Volatile
@@ -93,7 +223,8 @@ Visualization Manager:
       Enabled: true
       Name: MarkerArray
       Namespaces:
-        {}
+        points_sequence_1: true
+        points_sequence_2: true
       Topic:
         Depth: 5
         Durability Policy: Volatile
@@ -239,7 +370,7 @@ Visualization Manager:
       Name: Current View
       Near Clip Distance: 0.009999999776482582
       Pitch: 0.6147968769073486
-      Target Frame: demo_camera_target
+      Target Frame: <Fixed Frame>
       Value: Orbit (rviz_default_plugins)
       Yaw: 3.3694169521331787
     Saved: ~
