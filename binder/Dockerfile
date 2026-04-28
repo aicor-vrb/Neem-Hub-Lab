@@ -48,6 +48,7 @@ RUN apt update && apt install -y --no-install-recommends \
 RUN python3 -m pip install poetry
 ENV CRAM_DIR=/root/libs/cognitive_robot_abstract_machine
 ENV CRAM_VENV=/root/libs/cognitive_robot_abstract_machine/.venv
+ENV CRAM_KERNEL_NAME=cram-poetry
 RUN set -ex && \
     mkdir -p ${HOME}/libs && cd ${HOME}/libs && \
     git clone --branch cause_draft --single-branch https://github.com/Narenvasant/cognitive_robot_abstract_machine.git && \
@@ -56,6 +57,11 @@ RUN set -ex && \
     poetry config virtualenvs.in-project true && \
     poetry env use /opt/conda/bin/python3.12 && \
     poetry install && \
+    ${CRAM_VENV}/bin/python -m pip install ipykernel && \
+    ${CRAM_VENV}/bin/python -m ipykernel install \
+      --prefix=/opt/conda \
+      --name ${CRAM_KERNEL_NAME} \
+      --display-name "CRAM Python (Poetry)" && \
     mkdir -p /workspace/ros/src && \
     cd /workspace/ros/src && \
     git clone -b ros-jazzy --single-branch https://github.com/code-iai/iai_maps.git && \
