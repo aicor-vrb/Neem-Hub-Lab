@@ -17,7 +17,7 @@ warnings.filterwarnings("ignore")
 
 CURRENT_DEMO_SELECTION = {}
 BACKGROUND_IMAGE_PATH = (
-    Path(__file__).resolve().parent.parent.joinpath("img", "ease-background.png")
+    Path(__file__).resolve().parent.parent.joinpath("img", "aicor-background.png")
 )
 LOGO_IMAGE_PATH = Path(__file__).resolve().parent.parent.joinpath("img", "acior-logo.png")
 DEFAULT_DB_URL = "postgresql+psycopg2://readonly_user:aicor-vrb@134.102.137.85:15432/mydb"
